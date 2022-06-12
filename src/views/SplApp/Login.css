@@ -1,0 +1,9 @@
+body input {
+  margin: 0 auto;
+  width: 100px;
+  margin-bottom: 20px;
+}
+body button {
+  margin: 0 auto;
+  width: 100px;
+}
