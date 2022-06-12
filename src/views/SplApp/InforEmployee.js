@@ -10,7 +10,7 @@ class InforEmployee extends React.Component {
                 <div className='Infor'>
                     <div className='Infor__title'>Information of Employee</div>
                     <div className='Infor_content'>
-                        {!isEmpty && Employee.map((item, index) => {
+                        {Employee && Employee.length > 0 && Employee.map((item, index) => {
                             return (
                                 <>
                                     <div>

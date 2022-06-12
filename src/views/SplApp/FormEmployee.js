@@ -5,7 +5,6 @@ import InforEmployee from "./InforEmployee";
 class FormEmployee extends React.Component {
     state = {
         Employee: [
-            {}
         ]
     }
 
