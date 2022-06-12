@@ -1,0 +1,14 @@
+body {
+  margin-left: 0px;
+}
+body .Infor {
+  margin-top: 30px;
+  text-align: left;
+}
+body .Infor .Infor__title {
+  padding-left: 40px;
+}
+body .Infor .Infor_content {
+  margin-top: 10px;
+  padding-left: 40px;
+}
