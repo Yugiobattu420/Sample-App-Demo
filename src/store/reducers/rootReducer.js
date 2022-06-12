@@ -20,6 +20,12 @@ const rootReducer = (state = initState, action) => {
             state.recentAccount = ''
             return state
             break;
+        case 'ADD_EMPLOYEE':
+            let employee = action.payload
+            return {
+                ...state, employee: [...state.employee, employee]
+            }
+            break;
         default:
             return state;
     }

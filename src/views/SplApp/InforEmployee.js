@@ -14,7 +14,7 @@ class InforEmployee extends React.Component {
                             return (
                                 <>
                                     <div>
-                                        Name: {item.name} - Age: {item.age} - Sex: {item.sex}
+                                        ID: {item.id} - Name: {item.name} - Age: {item.age} - Sex: {item.sex}
                                     </div>
                                 </>
                             )

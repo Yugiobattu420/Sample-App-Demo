@@ -9,11 +9,14 @@ class FormEmployee extends React.Component {
         Employee: []
     }
 
-    AddEmployee = (item) => {
+    AddEmployee = (employeeInfo) => {
 
-        this.setState({
-            Employee: [...this.state.Employee, item]
-        })
+        this.props.addInformation(employeeInfo)
+        console.log('>>> check employee from add function: ', employeeInfo)
+
+        // this.setState({
+        //     Employee: [...this.state.Employee, item]
+        // })
     }
 
     Logout = () => {
@@ -28,15 +31,20 @@ class FormEmployee extends React.Component {
     render() {
         //console.log('>>> Check props: ', this.props.match.params.name)
         let userName = this.props.userName
+        let employee = this.props.employee
+        let isEmpty = Object.keys(employee).length === 0
+        //console.log('>>> check employee: ', employee)
+        if (userName && !isEmpty) {
+            employee = employee.filter(item => item.owner === userName)
+        }
+
         return (
             <>
                 {userName && this.props.match.params.name === userName ?
                     <>
                         <div>Hello {userName}</div>
-                        <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} />
-                        <InforEmployee Employee={this.state.Employee} />
-
-
+                        <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} UserName={userName} />
+                        <InforEmployee Employee={employee} />
                     </>
                     :
                     <>
@@ -51,14 +59,18 @@ class FormEmployee extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userName: state.recentAccount
+        userName: state.recentAccount,
+        employee: state.employee
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logOut: () => dispatch({ type: 'LOG_OUT' })
+        logOut: () => dispatch({ type: 'LOG_OUT' }),
+        addInformation: (employeeInfo) => dispatch({ type: 'ADD_EMPLOYEE', payload: employeeInfo })
     }
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FormEmployee));
