@@ -1,5 +1,6 @@
 import React from 'react'
 import './Login.css'
+import { withRouter } from "react-router";
 import { connect } from 'react-redux';
 
 class Login extends React.Component {
@@ -21,6 +22,10 @@ class Login extends React.Component {
     }
 
     handleClickLogin = (account) => {
+        if (!this.state.user || !this.state.pass) {
+            alert('Enter your user and pass')
+            return;
+        }
         let check = true
         account && account.length > 0 && account.map((item, index) => {
             if (item.user === this.state.user && item.pass === this.state.pass) {
@@ -31,11 +36,15 @@ class Login extends React.Component {
         if (check === false) {
             alert("Login fail")
         }
+        else {
+            this.setState({
+                user: '',
+                pass: ''
+            })
 
-        this.setState({
-            user: '',
-            pass: ''
-        })
+            this.props.history.push(`/${this.state.user}`)
+        }
+
     }
 
     render() {
@@ -62,4 +71,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(withRouter(Login));

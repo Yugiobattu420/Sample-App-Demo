@@ -3,7 +3,8 @@ const initState = {
     account: [
         { user: 'admin', pass: '123' },
         { user: 'duy', pass: '6969' }
-    ]
+    ],
+    recentAccount: ''
 }
 
 const rootReducer = (state = initState, action) => {
