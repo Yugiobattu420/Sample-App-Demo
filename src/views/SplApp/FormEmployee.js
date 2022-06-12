@@ -21,14 +21,29 @@ class FormEmployee extends React.Component {
         this.props.history.push('/')
     }
 
+    handleOnClickReturnLogin = () => {
+        this.props.history.push('/')
+    }
+
     render() {
-        console.log('>>> Check props: ', this.props)
+        //console.log('>>> Check props: ', this.props.match.params.name)
         let userName = this.props.userName
         return (
             <>
-                <div>Hello {userName}</div>
-                <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} />
-                <InforEmployee Employee={this.state.Employee} />
+                {userName && this.props.match.params.name === userName ?
+                    <>
+                        <div>Hello {userName}</div>
+                        <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} />
+                        <InforEmployee Employee={this.state.Employee} />
+
+
+                    </>
+                    :
+                    <>
+                        <div>You have to Login first</div>
+                        <button onClick={() => this.handleOnClickReturnLogin()}>Login</button>
+                    </>
+                }
             </>
         )
     }

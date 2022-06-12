@@ -26,9 +26,10 @@ class Login extends React.Component {
             alert('Enter your user and pass')
             return;
         }
-        let check = true
+        let check = false
         account && account.length > 0 && account.map((item, index) => {
             if (item.user === this.state.user && item.pass === this.state.pass) {
+                check = true
                 alert('Login success')
                 return;
             }
@@ -43,7 +44,6 @@ class Login extends React.Component {
             })
 
             this.props.setRecentAccount(this.state.user)
-
             this.props.history.push(`/${this.state.user}`)
         }
 
