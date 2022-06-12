@@ -9,7 +9,18 @@ const initState = {
 
 const rootReducer = (state = initState, action) => {
 
-    return state
+    switch (action.type) {
+        case 'SET_RECENT_ACCOUNT':
+            let recentAccount = action.payload
+            return {
+                ...state, recentAccount
+            }
+            break;
+        default:
+            return state;
+    }
+
+
 }
 
 export default rootReducer;

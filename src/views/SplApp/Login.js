@@ -42,6 +42,8 @@ class Login extends React.Component {
                 pass: ''
             })
 
+            this.props.setRecentAccount(this.state.user)
+
             this.props.history.push(`/${this.state.user}`)
         }
 
@@ -71,4 +73,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(Login));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setRecentAccount: (recentAccount) => dispatch({ type: 'SET_RECENT_ACCOUNT', payload: recentAccount })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
