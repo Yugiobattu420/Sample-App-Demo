@@ -1,6 +1,8 @@
 import React from "react";
 import InForm from "./InForm";
 import InforEmployee from "./InforEmployee";
+import { withRouter } from "react-router";
+import { connect } from 'react-redux';
 
 class FormEmployee extends React.Component {
     state = {
@@ -14,14 +16,34 @@ class FormEmployee extends React.Component {
         })
     }
 
+    Logout = () => {
+        this.props.logOut()
+        this.props.history.push('/')
+    }
+
     render() {
+        console.log('>>> Check props: ', this.props)
+        let userName = this.props.userName
         return (
             <>
-                <InForm AddEmployee={this.AddEmployee} />
+                <div>Hello {userName}</div>
+                <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} />
                 <InforEmployee Employee={this.state.Employee} />
             </>
         )
     }
 }
 
-export default FormEmployee;
+const mapStateToProps = (state) => {
+    return {
+        userName: state.recentAccount
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logOut: () => dispatch({ type: 'LOG_OUT' })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FormEmployee));

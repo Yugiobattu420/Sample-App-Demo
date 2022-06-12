@@ -16,6 +16,10 @@ const rootReducer = (state = initState, action) => {
                 ...state, recentAccount
             }
             break;
+        case 'LOG_OUT':
+            state.recentAccount = ''
+            return state
+            break;
         default:
             return state;
     }

@@ -51,6 +51,7 @@ class Login extends React.Component {
 
     render() {
 
+        // console.log('>>> Check props: ', this.props)
         // console.log('check props: ', this.props.userData)
         let account = this.props.userData
 
@@ -70,6 +71,7 @@ class Login extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userData: state.account
+        //userName: state.recentAccount
     }
 }
 

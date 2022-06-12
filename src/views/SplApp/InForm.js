@@ -45,6 +45,10 @@ class InForm extends React.Component {
         })
     }
 
+    handleOnClickLogout = () => {
+        this.props.Logout()
+    }
+
     render() {
         return (
             <>
@@ -56,6 +60,7 @@ class InForm extends React.Component {
                     <div className='Sex'>Enter sex of employee</div>
                     <input type="text" value={this.state.sex} onChange={(event) => this.handleOnChangeSex(event)} /> <br />
                     <button onClick={() => this.handleOnClickAdd()}>Add</button>
+                    <button onClick={() => this.handleOnClickLogout()}>Logout</button>
                 </div>
             </>
         )
