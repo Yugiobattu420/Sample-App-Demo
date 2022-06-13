@@ -6,7 +6,7 @@ class InForm extends React.Component {
         id: '',
         name: '',
         age: '',
-        sex: '',
+        sex: ''
     }
 
     handleOnChangeID = (event) => {
