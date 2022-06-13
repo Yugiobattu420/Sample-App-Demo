@@ -40,6 +40,7 @@ class InForm extends React.Component {
         }
 
         this.props.AddEmployee({
+            key: Math.floor(Math.random() * 100) + 999,
             owner: userName,
             id: this.state.id,
             name: this.state.name,

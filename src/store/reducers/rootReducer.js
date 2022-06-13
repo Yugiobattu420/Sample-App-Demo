@@ -21,16 +21,26 @@ const rootReducer = (state = initState, action) => {
             return state
             break;
         case 'ADD_EMPLOYEE':
-            let employee = action.payload
+            let employees = action.payload
             return {
-                ...state, employee: [...state.employee, employee]
+                ...state, employee: [...state.employee, employees]
             }
+            break;
+        case 'DELETE_EMPLOYEE':
+            let employee = state.employee
+            employee = employee.filter(item => item.id !== action.payload.id)
+            return {
+                ...state, employee
+            }
+            // console.log('>>> check before delete: ', state.employee)
+            // state.employee = state.employee.filter(item => item.key !== action.payload.key)
+            // console.log('>>> check after delete: ', state.employee)
+            // console.log('>>> check payload from redux: ', action.payload)
+            // return state
             break;
         default:
             return state;
     }
-
-
 }
 
 export default rootReducer;

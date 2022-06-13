@@ -28,12 +28,18 @@ class FormEmployee extends React.Component {
         this.props.history.push('/')
     }
 
+    DeleteEmployee = (employeeInfo) => {
+        console.log('>>> check employee from delete function: ', employeeInfo)
+        this.props.deleteInformation(employeeInfo)
+
+    }
+
     render() {
         //console.log('>>> Check props: ', this.props.match.params.name)
         let userName = this.props.userName
         let employee = this.props.employee
         let isEmpty = Object.keys(employee).length === 0
-        //console.log('>>> check employee: ', employee)
+        // console.log('>>> check employee: ', employee)
         if (userName && !isEmpty) {
             employee = employee.filter(item => item.owner === userName)
         }
@@ -44,7 +50,7 @@ class FormEmployee extends React.Component {
                     <>
                         <div>Hello {userName}</div>
                         <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} UserName={userName} />
-                        <InforEmployee Employee={employee} />
+                        <InforEmployee Employee={employee} DeleteEmployee={this.DeleteEmployee} />
                     </>
                     :
                     <>
@@ -60,14 +66,15 @@ class FormEmployee extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userName: state.recentAccount,
-        employee: state.employee
+        employee: state.employee,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         logOut: () => dispatch({ type: 'LOG_OUT' }),
-        addInformation: (employeeInfo) => dispatch({ type: 'ADD_EMPLOYEE', payload: employeeInfo })
+        addInformation: (employeeInfo) => dispatch({ type: 'ADD_EMPLOYEE', payload: employeeInfo }),
+        deleteInformation: (employeeInfo) => dispatch({ type: 'DELETE_EMPLOYEE', payload: employeeInfo })
     }
 }
 

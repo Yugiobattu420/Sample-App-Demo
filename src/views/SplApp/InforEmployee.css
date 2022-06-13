@@ -12,3 +12,12 @@ body .Infor .Infor_content {
   margin-top: 10px;
   padding-left: 40px;
 }
+body .Infor .Infor_content .Content button {
+  height: 25px;
+  width: 80px;
+  font-size: 1rem;
+}
+body .Infor .Infor_content .Content .edit {
+  margin-left: 450px;
+  margin-right: 15px;
+}
