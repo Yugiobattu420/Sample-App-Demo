@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 
 class FormEmployee extends React.Component {
     state = {
-        Employee: []
+        Employee: [],
+        Edit: {}
     }
 
     AddEmployee = (employeeInfo) => {
@@ -34,10 +35,23 @@ class FormEmployee extends React.Component {
 
     }
 
+    EditEmployee = (item) => {
+        // let { Employee, Edit } = this.state;
+        // let isEmptyObj = Object.keys(Edit).length === 0;
+        // if (!isEmptyObj && item.key === Edit.key){
+        //     // let EmployeeCopy = [...Employee];
+        //     // let objIndex = listTodosCopy.findIndex((item => item.id === todo.id));
+        //     // return;
+        // }
+        this.props.editInformation(item)
+    }
+
     render() {
         //console.log('>>> Check props: ', this.props.match.params.name)
         let userName = this.props.userName
         let employee = this.props.employee
+        let edit = this.props.edit
+        console.log('>>> check edit from form: ', this.props)
         let isEmpty = Object.keys(employee).length === 0
         // console.log('>>> check employee: ', employee)
         if (userName && !isEmpty) {
@@ -50,7 +64,7 @@ class FormEmployee extends React.Component {
                     <>
                         <div>Hello {userName}</div>
                         <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} UserName={userName} />
-                        <InforEmployee Employee={employee} DeleteEmployee={this.DeleteEmployee} />
+                        <InforEmployee Employee={employee} Edit={edit} DeleteEmployee={this.DeleteEmployee} EditEmployee={this.EditEmployee} />
                     </>
                     :
                     <>
@@ -67,6 +81,7 @@ const mapStateToProps = (state) => {
     return {
         userName: state.recentAccount,
         employee: state.employee,
+        edit: state.edit
     }
 }
 
@@ -74,7 +89,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         logOut: () => dispatch({ type: 'LOG_OUT' }),
         addInformation: (employeeInfo) => dispatch({ type: 'ADD_EMPLOYEE', payload: employeeInfo }),
-        deleteInformation: (employeeInfo) => dispatch({ type: 'DELETE_EMPLOYEE', payload: employeeInfo })
+        deleteInformation: (employeeInfo) => dispatch({ type: 'DELETE_EMPLOYEE', payload: employeeInfo }),
+        editInformation: (employee) => dispatch({ type: 'EDIT_EMPLOYEE', payload: employee })
     }
 }
 

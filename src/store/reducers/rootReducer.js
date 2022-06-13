@@ -4,7 +4,8 @@ const initState = {
         { user: 'admin', pass: '123' },
         { user: 'duy', pass: '6969' }
     ],
-    recentAccount: ''
+    recentAccount: '',
+    edit: {}
 }
 
 const rootReducer = (state = initState, action) => {
@@ -26,17 +27,18 @@ const rootReducer = (state = initState, action) => {
                 ...state, employee: [...state.employee, employees]
             }
             break;
+        case 'EDIT_EMPLOYEE':
+            let edit = action.payload
+            return {
+                ...state, edit
+            }
+            break;
         case 'DELETE_EMPLOYEE':
             let employee = state.employee
-            employee = employee.filter(item => item.id !== action.payload.id)
+            employee = employee.filter(item => item.key !== action.payload.key)
             return {
                 ...state, employee
             }
-            // console.log('>>> check before delete: ', state.employee)
-            // state.employee = state.employee.filter(item => item.key !== action.payload.key)
-            // console.log('>>> check after delete: ', state.employee)
-            // console.log('>>> check payload from redux: ', action.payload)
-            // return state
             break;
         default:
             return state;

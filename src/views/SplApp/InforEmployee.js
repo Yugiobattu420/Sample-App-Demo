@@ -7,9 +7,15 @@ class InforEmployee extends React.Component {
         this.props.DeleteEmployee(item)
     }
 
+    handleOnClickEdit = (item) => {
+        this.props.EditEmployee(item)
+    }
+
     render() {
-        let { Employee } = this.props
+        let { Employee, Edit } = this.props
+        // console.log('>>> check edit from form: ', Edit)
         let isEmpty = Object.keys(Employee).length === 0
+        let isEmptyEdit = Object.keys(Edit).length === 0
         return (
             <>
                 <div className='Infor'>
@@ -20,7 +26,11 @@ class InforEmployee extends React.Component {
                                 <>
                                     <div className='Content' key={item.key}>
                                         ID: {item.id} - Name: {item.name} - Age: {item.age} - Sex: {item.sex}
-                                        <button className='edit'>Edit</button>
+                                        <button className='edit' onClick={() => this.handleOnClickEdit(item)}>
+                                            {!isEmptyEdit && item.key === Edit.key ?
+                                                'Save' : 'Edit'
+                                            }
+                                        </button>
                                         <button className='delete' onClick={() => this.handleOnClickDelete(item)}>Delete</button>
                                     </div>
                                 </>
