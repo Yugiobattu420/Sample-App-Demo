@@ -90,7 +90,8 @@ const mapDispatchToProps = (dispatch) => {
         logOut: () => dispatch({ type: 'LOG_OUT' }),
         addInformation: (employeeInfo) => dispatch({ type: 'ADD_EMPLOYEE', payload: employeeInfo }),
         deleteInformation: (employeeInfo) => dispatch({ type: 'DELETE_EMPLOYEE', payload: employeeInfo }),
-        editInformation: (employee) => dispatch({ type: 'EDIT_EMPLOYEE', payload: employee })
+        editInformation: (employee) => dispatch({ type: 'EDIT_EMPLOYEE', payload: employee }),
+        loginGoogle: (googleUser) => dispatch({ type: 'LOGIN_GOOGLE', payload: googleUser })
     }
 }
 

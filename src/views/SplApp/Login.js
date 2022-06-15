@@ -56,8 +56,8 @@ class Login extends React.Component {
         const provider = new GoogleAuthProvider();
         signInWithPopup(authentication, provider)
             .then(res => {
-
-
+                this.props.setRecentAccount(res.user.displayName)
+                this.props.history.push(`/${res.user.displayName}`)
             })
     }
 
