@@ -2,6 +2,9 @@ import React from 'react'
 import './Login.css'
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import GoogleButton from 'react-google-button';
+import { authentication } from '../auth/FirebaseConfig';
 
 class Login extends React.Component {
     state = {
@@ -49,6 +52,15 @@ class Login extends React.Component {
 
     }
 
+    SignInGoogle = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(authentication, provider)
+            .then(res => {
+
+
+            })
+    }
+
     render() {
 
         // console.log('>>> Check props: ', this.props)
@@ -63,6 +75,7 @@ class Login extends React.Component {
                 <div>Password</div>
                 <input value={this.state.pass} onChange={(event) => this.handleChangePass(event)} />
                 <button onClick={() => this.handleClickLogin(account)}>Login</button>
+                <div><GoogleButton className='gg_button' type="dark" onClick={() => this.SignInGoogle()} /></div>
             </>
         )
     }

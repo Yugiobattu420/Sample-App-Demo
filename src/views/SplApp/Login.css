@@ -6,4 +6,8 @@ body input {
 body button {
   margin: 0 auto;
   width: 100px;
+  margin-bottom: 20px;
+}
+body .gg_button {
+  margin: 0 auto;
 }
