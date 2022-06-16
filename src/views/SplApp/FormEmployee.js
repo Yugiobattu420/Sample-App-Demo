@@ -3,11 +3,16 @@ import InForm from "./InForm";
 import InforEmployee from "./InforEmployee";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
+import { GoogleAuthProvider, signInWithPopup, getAuth, onAuthStateChanged } from "firebase/auth";
+import { authentication } from '../auth/FirebaseConfig';
+
 
 class FormEmployee extends React.Component {
     state = {
-        Employee: [],
-        Edit: {}
+        // Employee: [],
+        // Edit: {},
+        name: '',
+        auth: false
     }
 
     AddEmployee = (employeeInfo) => {
@@ -46,11 +51,34 @@ class FormEmployee extends React.Component {
         this.props.editInformation(item)
     }
 
+    componentDidMount = () => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                this.setState({
+                    auth: false
+                })
+                this.props.logOut()
+                this.props.history.push('/')
+            }
+            else {
+                this.setState({
+                    name: user.displayName,
+                    auth: true
+                })
+                console.log('>>> check user from did mount: ', user)
+                console.log('>>> check auth from did mount: ', this.state.auth)
+            }
+        })
+    }
+
     render() {
         //console.log('>>> Check props: ', this.props.match.params.name)
         let userName = this.props.userName
         let employee = this.props.employee
         let edit = this.props.edit
+        this.state.auth = this.props.auth
+        //console.log('>>>check auth: ', this.props.auth)
         console.log('>>> check edit from form: ', this.props)
         let isEmpty = Object.keys(employee).length === 0
         // console.log('>>> check employee: ', employee)
@@ -60,7 +88,7 @@ class FormEmployee extends React.Component {
 
         return (
             <>
-                {userName && this.props.match.params.name === userName ?
+                {this.state.auth && this.props.match.params.name === this.state.name ?
                     <>
                         <div>Hello {userName}</div>
                         <InForm AddEmployee={this.AddEmployee} Logout={this.Logout} UserName={userName} />
@@ -68,8 +96,14 @@ class FormEmployee extends React.Component {
                     </>
                     :
                     <>
-                        <div>You have to Login first</div>
-                        <button onClick={() => this.handleOnClickReturnLogin()}>Login</button>
+                        {this.props.match.params.name !== this.state.name ?
+                            <>
+                                <div>You have to Login first</div>
+                                <button onClick={() => this.handleOnClickReturnLogin()}>Login</button>
+                            </>
+                            :
+                            <></>
+                        }
                     </>
                 }
             </>
@@ -81,7 +115,8 @@ const mapStateToProps = (state) => {
     return {
         userName: state.recentAccount,
         employee: state.employee,
-        edit: state.edit
+        edit: state.edit,
+        auth: state.auth
     }
 }
 

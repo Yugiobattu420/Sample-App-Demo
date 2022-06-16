@@ -5,7 +5,8 @@ const initState = {
         { user: 'duy', pass: '6969' }
     ],
     recentAccount: '',
-    edit: {}
+    edit: {},
+    auth: true
 }
 
 const rootReducer = (state = initState, action) => {
@@ -13,12 +14,14 @@ const rootReducer = (state = initState, action) => {
     switch (action.type) {
         case 'SET_RECENT_ACCOUNT':
             let recentAccount = action.payload
+            let auth = true
             return {
-                ...state, recentAccount
+                ...state, recentAccount, auth
             }
             break;
         case 'LOG_OUT':
-            state.recentAccount = ''
+            state.recentAccount = '';
+            state.auth = false;
             if (state.edit)
                 state.edit = {}
             return state
@@ -41,6 +44,8 @@ const rootReducer = (state = initState, action) => {
                 employeeCopy[objIndex].name = edit.name
                 employeeCopy[objIndex].age = edit.age
                 employeeCopy[objIndex].sex = edit.sex
+
+                // employee[objIndex] = edit
 
                 state.employee = employeeCopy
                 edit = {}

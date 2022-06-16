@@ -1,5 +1,7 @@
 import React from 'react';
 import './Inform.css'
+import { authentication } from '../auth/FirebaseConfig';
+import { getAuth, signOut } from "firebase/auth";
 
 class InForm extends React.Component {
     state = {
@@ -57,6 +59,15 @@ class InForm extends React.Component {
     }
 
     handleOnClickLogout = () => {
+        const authentication = getAuth();
+        signOut(authentication)
+            .then(() => {
+                alert('Sign Out Successful')
+            })
+            .catch((error) => {
+                alert('Error')
+            });
+
         this.props.Logout()
     }
 
