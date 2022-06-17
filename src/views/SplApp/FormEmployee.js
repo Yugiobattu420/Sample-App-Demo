@@ -66,11 +66,32 @@ class FormEmployee extends React.Component {
                     name: user.displayName,
                     auth: true
                 })
-                console.log('>>> check user from did mount: ', user)
-                console.log('>>> check auth from did mount: ', this.state.auth)
+                // console.log('>>> check user from did mount: ', user)
+                // console.log('>>> check auth from did mount: ', this.state.auth)
             }
         })
     }
+
+    // componentDidUpdate = () => {
+    //     const auth = getAuth();
+    //     onAuthStateChanged(auth, (user) => {
+    //         if (!user) {
+    //             this.setState({
+    //                 auth: false
+    //             })
+    //             this.props.logOut()
+    //             this.props.history.push('/')
+    //         }
+    //         else {
+    //             this.setState({
+    //                 name: user.displayName,
+    //                 auth: true
+    //             })
+    //             // console.log('>>> check user from did mount: ', user)
+    //             // console.log('>>> check auth from did mount: ', this.state.auth)
+    //         }
+    //     })
+    // }
 
     render() {
         //console.log('>>> Check props: ', this.props.match.params.name)
@@ -96,14 +117,15 @@ class FormEmployee extends React.Component {
                     </>
                     :
                     <>
-                        {this.props.match.params.name !== this.state.name ?
+                        {/* {this.props.match.params.name !== this.state.name ?
                             <>
                                 <div>You have to Login first</div>
                                 <button onClick={() => this.handleOnClickReturnLogin()}>Login</button>
                             </>
                             :
                             <></>
-                        }
+                        } */}
+                        <div>Loading.....</div>
                     </>
                 }
             </>

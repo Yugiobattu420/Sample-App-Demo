@@ -2,7 +2,7 @@ import React from 'react'
 import './Login.css'
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, getAuth, onAuthStateChanged } from "firebase/auth";
 import GoogleButton from 'react-google-button';
 import { authentication } from '../auth/FirebaseConfig';
 
@@ -59,6 +59,15 @@ class Login extends React.Component {
                 this.props.setRecentAccount(res.user.displayName)
                 this.props.history.push(`/${res.user.displayName}`)
             })
+    }
+
+    componentDidMount = () => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.props.history.push(`/${user.displayName}`)
+            }
+        })
     }
 
     render() {
